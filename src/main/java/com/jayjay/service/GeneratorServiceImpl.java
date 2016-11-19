@@ -13,6 +13,14 @@ public class GeneratorServiceImpl implements GeneratorService {
     private String conversion = "";
     private List<String> conversions = new ArrayList<>();
 
+    private ComparisonService comparisonService;
+
+    public GeneratorServiceImpl(){}
+
+    public GeneratorServiceImpl(ComparisonService comparisonService) {
+        this.comparisonService = comparisonService;
+    }
+
     @Override
     public String newNumber(String oldNumber) {
         return oldNumber.substring(1);
@@ -37,6 +45,8 @@ public class GeneratorServiceImpl implements GeneratorService {
     @Override
     public void convertNumbers(List<String> words, String number, String originalNumber)
             throws InvalidPhoneNumberException {
+        boolean hasMatch = false;
+
         int firstDigit = Integer.parseInt(number.substring(0,1));
         Optional<NumberEncoding> numberEncoding = NumberEncoding.findByDigit(firstDigit);
 
@@ -55,13 +65,30 @@ public class GeneratorServiceImpl implements GeneratorService {
                 conversion += number + "-";
                 number = newNumber(number);
 
+                System.out.print("# ");
                 convertNumbers(words, number, originalNumber);
             }
         }
 
-        
+        for(String word : words) {
+            if(comparisonService.hasMatch(word, number)) {
+                if(word.length() == number.length()) {
+                    conversion += word;
+                    conversions.add(conversion);
+                    conversion = "";
+                } else {
+                    conversion += word + "-";
+                    String newNumber = number.substring(word.length() - 1, number.length());
+                }
 
-        System.out.println("..");
+
+                hasMatch = true;
+            }
+        }
+
+
+
+
     }
 
     @Override

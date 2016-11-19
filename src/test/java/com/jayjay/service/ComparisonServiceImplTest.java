@@ -27,4 +27,9 @@ public class ComparisonServiceImplTest {
         assertFalse(comparisonService.hasMatch("WALL","2255"));
         assertFalse(comparisonService.hasMatch("CALX","2255"));
     }
+
+    @Test
+    public void shouldReturnFalseIfWordIsLengthierThanNumber() {
+        assertFalse(comparisonService.hasMatch("LENGTHIER","123"));
+    }
 }

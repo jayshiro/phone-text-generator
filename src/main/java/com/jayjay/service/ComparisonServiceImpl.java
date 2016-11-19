@@ -9,6 +9,11 @@ public class ComparisonServiceImpl implements ComparisonService {
     public boolean hasMatch(String word, String number) {
         String str = "";
         String num = "";
+
+        if(word.length() > number.length()) {
+            return false;
+        }
+
         for(int i = 0; i < word.length(); i++) {
             str = word.substring(i,i+1);
             num = number.substring(i,i+1);
