@@ -12,4 +12,5 @@ public interface TxtReader {
 
     public List<String> readTxt(String filePath) throws InvalidFileExtensionException, IOException, EmptyFileException;
     public String removeUnwantedCharacters(String text);
+    public String extractNumbers(String text);
 }

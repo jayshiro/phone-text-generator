@@ -48,6 +48,11 @@ public class TxtReaderImpl implements TxtReader {
         return text.replaceAll("[^A-Za-z0-9]", "");
     }
 
+    @Override
+    public String extractNumbers(String text) {
+        return text.replaceAll("[^0-9]","");
+    }
+
     private boolean hasValidFileExtension(String filePath) {
         int index = filePath.lastIndexOf('.');
         if(index > 0) {

@@ -72,4 +72,11 @@ public class TxtReaderImplTest {
         List<String> expectedNumbers = Arrays.asList(new String [] {"225563","48234","923828423"});
         assertThat(numbers, is(expectedNumbers));
     }
+
+    @Test
+    public void shouldRemoveNonNumericCharacters() {
+        assertEquals(txtReader.extractNumbers("123.325"),"123325");
+        assertEquals(txtReader.extractNumbers("2255;;;34"),"225534");
+        assertEquals(txtReader.extractNumbers("CALL ER $s2"), "2");
+    }
 }
