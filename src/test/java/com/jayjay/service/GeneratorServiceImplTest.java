@@ -72,4 +72,13 @@ public class GeneratorServiceImplTest {
         generatorService.generateConversion(words, numbers);
         assertThat(generatorService.getConversions(), is(expectedResult));
     }
+
+    @Test
+    public void shouldReturnTheCorrectResultsGivenWordsAndASingleNumber() {
+        List<String> words = Arrays.asList(new String [] {"call","ball","hall","me"});
+        List<String> expectedResult = Arrays.asList(new String [] {"CALL-ME","BALL-ME"});
+
+        generatorService.generateConversion(words, "225563");
+        assertThat(generatorService.getConversions(), is(expectedResult));
+    }
 }

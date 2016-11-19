@@ -10,4 +10,5 @@ public interface GeneratorService {
             throws InvalidPhoneNumberException;
     public List<String> getConversions();
     public void generateConversion(List<String> words, List<String> numbers);
+    public void generateConversion(List<String> words, String number);
 }

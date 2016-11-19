@@ -95,6 +95,19 @@ public class GeneratorServiceImpl implements GeneratorService {
 
     }
 
+    @Override
+    public void generateConversion(List<String> words, String number) {
+        conversions = new ArrayList<>();
+        skippedNumbers = 0;
+        try {
+            convertNumbers(words, number, number, "");
+        } catch(InvalidPhoneNumberException ipne) {
+        }
+
+        conversions.stream()
+                .forEach(System.out::println);
+    }
+
     private void handleSingleDigitNumber(List<String> words, String number, String originalNumber, String conversion,
                                          int firstDigit) throws InvalidPhoneNumberException {
         if(number.length() - 1 == 0) {
