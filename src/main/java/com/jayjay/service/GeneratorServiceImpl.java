@@ -59,7 +59,9 @@ public class GeneratorServiceImpl implements GeneratorService {
 
             if(number.length() - 1 == 0) {
                 conversion += number;
-                conversions.add(conversion);
+                if(!conversion.equals(number)) {
+                    conversions.add(conversion);
+                }
                 conversion = "";
             } else {
                 conversion += firstDigit + "-";
@@ -71,6 +73,8 @@ public class GeneratorServiceImpl implements GeneratorService {
         }
 
         for(String word : words) {
+            word = comparisonService.capitalize(word);
+
             if(comparisonService.hasMatch(word, number)) {
                 skippedNumbers = 0;
 
@@ -96,7 +100,9 @@ public class GeneratorServiceImpl implements GeneratorService {
 
             if(number.length() - 1 == 0) {
                 conversion += number;
-                conversions.add(conversion);
+                if(!conversion.equals(number)) {
+                    conversions.add(conversion);
+                }
                 conversion = "";
             } else {
                 conversion += firstDigit + "-";
@@ -118,10 +124,10 @@ public class GeneratorServiceImpl implements GeneratorService {
 
         for(String number : numbers) {
             skippedNumbers = 0;
+            conversion = "";
             try {
                 convertNumbers(words, number, number);
             } catch (InvalidPhoneNumberException ipne) {
-                System.out.println(ipne.getMessage());
             }
         }
 
