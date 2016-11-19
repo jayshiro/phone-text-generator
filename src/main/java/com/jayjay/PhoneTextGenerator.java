@@ -10,9 +10,6 @@ import java.util.List;
 
 public class PhoneTextGenerator {
     public static void main(String [] args) throws EmptyFileException, IOException, InvalidFileExtensionException {
-        String str = "ab";
-        System.out.println(str.substring(1,1));
-
         TxtReader txtReader = new TxtReaderImpl();
         ComparisonService comparisonService = new ComparisonServiceImpl();
         GeneratorService generatorService = new GeneratorServiceImpl(comparisonService);

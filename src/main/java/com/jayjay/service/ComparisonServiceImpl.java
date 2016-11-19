@@ -32,4 +32,13 @@ public class ComparisonServiceImpl implements ComparisonService {
         }
         return true;
     }
+
+    @Override
+    public String capitalize(String word) {
+        String result = "";
+        for(int i = 0; i < word.length(); i++) {
+            result += Character.toUpperCase(word.charAt(i));
+        }
+        return result;
+    }
 }

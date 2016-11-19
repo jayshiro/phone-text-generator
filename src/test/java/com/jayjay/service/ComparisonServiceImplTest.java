@@ -3,6 +3,7 @@ package com.jayjay.service;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -31,5 +32,11 @@ public class ComparisonServiceImplTest {
     @Test
     public void shouldReturnFalseIfWordIsLengthierThanNumber() {
         assertFalse(comparisonService.hasMatch("LENGTHIER","123"));
+    }
+
+    @Test
+    public void shouldCapitalizeWord() {
+        assertEquals(comparisonService.capitalize("hello"), "HELLO");
+        assertEquals(comparisonService.capitalize("World"), "WORLD");
     }
 }
