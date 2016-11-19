@@ -55,4 +55,19 @@ public class PhoneTextGeneratorIntegrationTest {
         List<String> expectedResults = Arrays.asList(new String [] {"CALL-ME","BALL-ME"});
         assertThat(generatorService.getConversions(), is(expectedResults));
     }
+
+    @Test
+    public void shouldReturnCorrectResultsGivenAMoreRobustDictionary()
+            throws EmptyFileException, IOException, InvalidFileExtensionException {
+        File dictionaryFile = new File(getClass().getClassLoader().getResource("dictionary2.txt").getFile());
+        File phoneNumberFile = new File(getClass().getClassLoader().getResource("phoneNumbers3.txt").getFile());
+
+        List<String> words = txtReader.readTxt(dictionaryFile.getAbsolutePath());
+        List<String> numbers = txtReader.readTxt(phoneNumberFile.getAbsolutePath());
+
+        generatorService.generateConversion(words, numbers);
+
+        List<String> expectedResults = Arrays.asList(new String [] {"CALL-ME","BALL-ME"});
+        assertThat(generatorService.getConversions(), is(expectedResults));
+    }
 }

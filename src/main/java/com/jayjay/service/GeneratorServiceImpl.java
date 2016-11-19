@@ -43,7 +43,7 @@ public class GeneratorServiceImpl implements GeneratorService {
     }
 
     @Override
-    public void convertNumbers(List<String> words, String number, String originalNumber)
+    public void convertNumbers(List<String> words, String number, String originalNumber, String conversion)
             throws InvalidPhoneNumberException {
         boolean hasMatch = false;
 
@@ -58,15 +58,12 @@ public class GeneratorServiceImpl implements GeneratorService {
             }
 
             if(number.length() - 1 == 0) {
-                conversion += number;
-                if(!conversion.equals(number)) {
-                    conversions.add(conversion);
+                if(number != originalNumber) {
+                    conversions.add(conversion + number);
                 }
-                conversion = "";
             } else {
-                conversion += firstDigit + "-";
                 number = newNumber(number);
-                convertNumbers(words, number, originalNumber);
+                convertNumbers(words, number, originalNumber, conversion + firstDigit + "-");
             }
 
             return;
@@ -79,12 +76,10 @@ public class GeneratorServiceImpl implements GeneratorService {
                 skippedNumbers = 0;
 
                 if(word.length() == number.length()) {
-                    conversion += word;
-                    conversions.add(conversion);
-                    conversion = "";
+                    conversions.add(conversion + word);
                 } else {
-                    conversion += word + "-";
-                    convertNumbers(words, number.substring(word.length(), number.length()), originalNumber);
+                    convertNumbers(words, number.substring(word.length(), number.length()), originalNumber,
+                            conversion + word + "-");
                 }
 
 
@@ -99,15 +94,12 @@ public class GeneratorServiceImpl implements GeneratorService {
             }
 
             if(number.length() - 1 == 0) {
-                conversion += number;
-                if(!conversion.equals(number)) {
-                    conversions.add(conversion);
+                if(number != originalNumber) {
+                    conversions.add(conversion + number);
                 }
-                conversion = "";
             } else {
-                conversion += firstDigit + "-";
                 number = newNumber(number);
-                convertNumbers(words, number, originalNumber);
+                convertNumbers(words, number, originalNumber, conversion + firstDigit + "-");
             }
         }
 
@@ -126,7 +118,7 @@ public class GeneratorServiceImpl implements GeneratorService {
             skippedNumbers = 0;
             conversion = "";
             try {
-                convertNumbers(words, number, number);
+                convertNumbers(words, number, number, "");
             } catch (InvalidPhoneNumberException ipne) {
             }
         }

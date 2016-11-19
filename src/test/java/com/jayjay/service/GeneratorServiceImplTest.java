@@ -32,14 +32,14 @@ public class GeneratorServiceImplTest {
     public void shouldProperlySkipNumbersWithTwoConsecutiveDigitsNotIncludedInEncoding()
             throws InvalidPhoneNumberException {
         List<String> words = new ArrayList<>();
-        generatorService.convertNumbers(words, "01", "01");
+        generatorService.convertNumbers(words, "01", "01", "");
     }
 
     @Test
     public void shouldProperlyConvertWordsWithSomeRemainingNumbers() throws InvalidPhoneNumberException {
         List<String> words = Arrays.asList(new String [] {"CALL"});
         List<String> expectedResult = Arrays.asList(new String [] {"CALL-1"});
-        generatorService.convertNumbers(words, "22551", "22551");
+        generatorService.convertNumbers(words, "22551", "22551", "");
         assertThat(generatorService.getConversions(), is(expectedResult));
     }
 
