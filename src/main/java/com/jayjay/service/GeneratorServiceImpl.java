@@ -62,12 +62,16 @@ public class GeneratorServiceImpl implements GeneratorService {
                 conversions.add(conversion);
                 conversion = "";
             } else {
-                conversion += number + "-";
+                conversion += firstDigit + "-";
                 number = newNumber(number);
 
-                System.out.print("# ");
+                //System.out.print("# ");
                 convertNumbers(words, number, originalNumber);
             }
+
+            return;
+        } else {
+            skippedNumbers = 0;
         }
 
         for(String word : words) {
@@ -78,7 +82,7 @@ public class GeneratorServiceImpl implements GeneratorService {
                     conversion = "";
                 } else {
                     conversion += word + "-";
-                    String newNumber = number.substring(word.length() - 1, number.length());
+                    convertNumbers(words, number.substring(word.length(), number.length()), originalNumber);
                 }
 
 
@@ -98,6 +102,8 @@ public class GeneratorServiceImpl implements GeneratorService {
 
     @Override
     public void generateConversion(List<String> words, List<String> numbers) {
+        conversions = new ArrayList<>();
+
         for(String number : numbers) {
             skippedNumbers = 0;
             try {
