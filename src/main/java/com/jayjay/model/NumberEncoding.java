@@ -1,5 +1,8 @@
 package com.jayjay.model;
 
+import java.util.Arrays;
+import java.util.Optional;
+
 public enum NumberEncoding {
     TWO(2, new String [] {"A","B","C"}),
     THREE(3, new String [] {"D","E","F"}),
@@ -24,5 +27,21 @@ public enum NumberEncoding {
 
     public String[] getChars() {
         return chars;
+    }
+
+    public boolean contains(String str) {
+        return Arrays.toString(chars).contains(str);
+    }
+
+    public static Optional<NumberEncoding> findByDigit(final int digit) {
+        return Arrays.asList(values())
+                .stream()
+                .filter(numberEncoding -> {
+                    if(numberEncoding.getDigit() == digit) {
+                        return true;
+                    }
+                    return false;
+                })
+                .findFirst();
     }
 }
