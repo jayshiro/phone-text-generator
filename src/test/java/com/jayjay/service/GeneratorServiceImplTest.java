@@ -3,6 +3,9 @@ package com.jayjay.service;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 
 public class GeneratorServiceImplTest {
@@ -18,4 +21,5 @@ public class GeneratorServiceImplTest {
         assertEquals(generatorService.newNumber("012345"), "12345");
         assertEquals(generatorService.newNumber("2837412"), "837412");
     }
+
 }
