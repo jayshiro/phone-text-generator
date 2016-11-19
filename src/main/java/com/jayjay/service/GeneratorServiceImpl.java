@@ -27,22 +27,6 @@ public class GeneratorServiceImpl implements GeneratorService {
     }
 
     @Override
-    public List<String> newWords(List<String> oldWords, String newNumber) {
-        return oldWords.stream()
-                .filter(oldWord -> {
-                    int firstDigit = Integer.parseInt(newNumber.substring(0,1));
-                    int length = newNumber.length();
-                    NumberEncoding numberEncoding = NumberEncoding.findByDigit(firstDigit).get();
-
-                    if(oldWord.length() <= length && numberEncoding.contains(oldWord.substring(0,1))) {
-                        return true;
-                    }
-                    return false;
-                })
-                .collect(Collectors.toList());
-    }
-
-    @Override
     public void convertNumbers(List<String> words, String number, String originalNumber, String conversion)
             throws InvalidPhoneNumberException {
         boolean hasMatch = false;
