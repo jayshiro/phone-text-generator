@@ -6,7 +6,6 @@ import com.jayjay.model.NumberEncoding;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 public class GeneratorServiceImpl implements GeneratorService {
     private int skippedNumbers;
@@ -14,8 +13,6 @@ public class GeneratorServiceImpl implements GeneratorService {
     private List<String> conversions = new ArrayList<>();
 
     private ComparisonService comparisonService;
-
-    public GeneratorServiceImpl(){}
 
     public GeneratorServiceImpl(ComparisonService comparisonService) {
         this.comparisonService = comparisonService;
