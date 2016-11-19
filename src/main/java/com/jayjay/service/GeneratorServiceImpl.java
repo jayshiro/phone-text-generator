@@ -53,7 +53,7 @@ public class GeneratorServiceImpl implements GeneratorService {
         if(!numberEncoding.isPresent()) {
             ++skippedNumbers;
 
-            if(skippedNumbers == 2) {
+            if(skippedNumbers >= 2) {
                 throw new InvalidPhoneNumberException(originalNumber + " has been skipped.");
             }
 
@@ -64,18 +64,16 @@ public class GeneratorServiceImpl implements GeneratorService {
             } else {
                 conversion += firstDigit + "-";
                 number = newNumber(number);
-
-                //System.out.print("# ");
                 convertNumbers(words, number, originalNumber);
             }
 
             return;
-        } else {
-            skippedNumbers = 0;
         }
 
         for(String word : words) {
             if(comparisonService.hasMatch(word, number)) {
+                skippedNumbers = 0;
+
                 if(word.length() == number.length()) {
                     conversion += word;
                     conversions.add(conversion);
@@ -90,8 +88,22 @@ public class GeneratorServiceImpl implements GeneratorService {
             }
         }
 
+        if(!hasMatch) {
+            ++skippedNumbers;
+            if(skippedNumbers >= 2) {
+                throw new InvalidPhoneNumberException(originalNumber + " has been skipped.");
+            }
 
-
+            if(number.length() - 1 == 0) {
+                conversion += number;
+                conversions.add(conversion);
+                conversion = "";
+            } else {
+                conversion += firstDigit + "-";
+                number = newNumber(number);
+                convertNumbers(words, number, originalNumber);
+            }
+        }
 
     }
 

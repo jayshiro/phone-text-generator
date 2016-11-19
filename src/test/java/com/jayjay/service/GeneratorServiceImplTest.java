@@ -52,4 +52,16 @@ public class GeneratorServiceImplTest {
         generatorService.generateConversion(words, numbers);
         assertThat(generatorService.getConversions(), is(expectedResult));
     }
+
+    @Test
+    public void shouldSkipNumberIfTwoConsecutiveDigitsHaveNoMatch() {
+        List<String> words = Arrays.asList(new String [] {"CALL"});
+        List<String> numbers = Arrays.asList(new String [] {"225599999"});
+        List<String> expectedResult = Arrays.asList(new String [] {});
+
+        generatorService.generateConversion(words, numbers);
+        assertThat(generatorService.getConversions(), is(expectedResult));
+    }
+
+    
 }
