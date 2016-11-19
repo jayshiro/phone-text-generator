@@ -41,15 +41,7 @@ public class GeneratorServiceImpl implements GeneratorService {
                 throw new InvalidPhoneNumberException(originalNumber + " has been skipped.");
             }
 
-            if(number.length() - 1 == 0) {
-                if(number != originalNumber) {
-                    conversions.add(conversion + number);
-                }
-            } else {
-                number = newNumber(number);
-                convertNumbers(words, number, originalNumber, conversion + firstDigit + "-");
-            }
-
+            handleSingleDigitNumber(words, number, originalNumber, conversion, firstDigit);
             return;
         }
 
@@ -77,14 +69,7 @@ public class GeneratorServiceImpl implements GeneratorService {
                 throw new InvalidPhoneNumberException(originalNumber + " has been skipped.");
             }
 
-            if(number.length() - 1 == 0) {
-                if(number != originalNumber) {
-                    conversions.add(conversion + number);
-                }
-            } else {
-                number = newNumber(number);
-                convertNumbers(words, number, originalNumber, conversion + firstDigit + "-");
-            }
+            handleSingleDigitNumber(words, number, originalNumber, conversion, firstDigit);
         }
 
     }
@@ -109,6 +94,19 @@ public class GeneratorServiceImpl implements GeneratorService {
 
         for(String conversion : conversions) {
             System.out.println(conversion);
+        }
+
+    }
+
+    private void handleSingleDigitNumber(List<String> words, String number, String originalNumber, String conversion,
+                                         int firstDigit) throws InvalidPhoneNumberException {
+        if(number.length() - 1 == 0) {
+            if(number != originalNumber) {
+                conversions.add(conversion + number);
+            }
+        } else {
+            number = newNumber(number);
+            convertNumbers(words, number, originalNumber, conversion + firstDigit + "-");
         }
 
     }
